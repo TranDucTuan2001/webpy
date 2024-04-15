@@ -1,0 +1,155 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content_checkout %}
+<div class="row" style="width: 100%; background-color: #eee; margin: 0 auto;">
+	<div class="col-lg-6" style="margin-bottom: 50px; margin-top: 80px;" >
+		<div class="col-lg-12">
+			<div class="card shopping-cart" style="border-radius: 15px;">
+				<div class="card-body text-black">
+					<div class="row">
+						<div class="col-md-12 px-3 py-3">
+							<h3 class="mb-4 text-center fw-bold text-uppercase">Your products</h3>
+							{% for item in items %}
+							<div class="d-flex align-items-center mb-3">
+								<div class="flex-shrink-0">
+									<img src="{{item.product.ImageURL}}" class="img-fluid" style="width: 80px;"
+										alt="Product image">
+								</div>
+								<div class="flex-grow-1 ms-3">
+									<p style="cursor: pointer;" data-action="delete" class="float-end text-black update-cart" data-product="{{ item.product.id }}"><i class="fas fa-times"></i></p>
+				
+									<h5 class="text-primary">{{item.product.name}}</h5>
+									<h6 style="color: #9e9e9e;">x{{item.quantity}}</h6>
+									<div class="d-flex align-items-center">
+										<p style="color: red;" class="fw-bold mb-0 me-4 pe-2">${{item.product.price | floatformat:2}}
+										</p>
+									</div>
+								</div>
+							</div>
+							<hr class="mb-2" style="height: 1px; background-color: #1266f1; opacity: 1;">
+							{% endfor %}
+							<div class="d-flex justify-content-between mb-2">
+								<p class="fw-bold">Items:</p>
+								<p class="fw-bold">{{order.get_cart_items}}</p>
+							</div>
+							<div class="d-flex justify-content-between p-2 mb-2" style="background-color: #e1f5fe;">
+								<h5 class="fw-bold mb-0">Total:</h5>
+								<h5 class="fw-bold mb-0" style="color: red;">${{order.get_cart_total | floatformat:2}}</h5>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6" style="margin-top: 80px; margin-bottom: 15px;">
+		<div class="col-lg-12">
+			<div class="card shopping-cart" style="border-radius: 15px;">
+				<div class="card-body text-black">
+					<div class="row">
+						<div class="col-md-6 px-3 py-3">
+							<h3 class="mb-4 text-center fw-bold text-uppercase">Your Information </h3>
+							<form id="form">
+								<div class="mb-3">
+									<label for="name" class="form-label">Name</label>
+									<input required class="form-control" type="text" name="name" id="name"
+										placeholder="Enter your name...">
+								</div>
+								<div class="mb-3">
+									<label for="email" class="form-label">Email</label>
+									<input required class="form-control" type="email" name="email" id="email"
+										placeholder="Enter your email...">
+								</div>
+								<hr>
+								<h5 class="card-title mb-4">Shipping Information</h5>
+								<div class="mb-3">
+									<label for="address" class="form-label">Address</label>
+									<input class="form-control" type="text" name="address" id="address"
+										placeholder="Enter your address...">
+								</div>
+								<div class="row g-3">
+									<div class="col">
+										<label for="city" class="form-label">City</label>
+										<input class="form-control" type="text" name="city" id="city"
+											placeholder="Enter your city...">
+									</div>
+									<div class="col">
+										<label for="state" class="form-label">State</label>
+										<input class="form-control" type="text" name="state" id="state"
+											placeholder="Enter your state...">
+									</div>
+								</div>
+								<div class="mb-3">
+									<label for="phone" class="form-label">Phone</label>
+									<input class="form-control" type="text" name="phone" id="phone"
+										placeholder="Enter your phone...">
+								</div>
+								<div class="mb-3">
+									<label for="country" class="form-label">Country</label>
+									<input class="form-control" type="text" name="country" id="country"
+										placeholder="Enter your country...">
+								</div>
+								<hr>
+								<!-- <input id="form-button" class="btn btn-success btn-block" type="submit"
+									value="Continue"> -->
+							</form>
+						</div>
+						<div class="col-md-6 px-3 py-3">
+							<h3 class="mb-4 text-center fw-bold text-uppercase">Payment</h3>
+							<form class="mb-4">
+								<div class="form-outline mb-4">
+									<input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+										value="1234 5678 9012 3457" minlength="19" maxlength="19" />
+									<label class="form-label" for="typeText">Card Number</label>
+								</div>
+								<div class="form-outline mb-4">
+									<input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+										value="John Smith" />
+									<label class="form-label" for="typeName">Name on card</label>
+								</div>
+								<div class="row">
+									<div class="col-md-6 mb-4">
+										<div class="form-outline">
+											<input type="text" id="typeExp" class="form-control form-control-lg"
+												value="01/22" size="7" id="exp" minlength="7" maxlength="7" />
+											<label class="form-label" for="typeExp">Expiration</label>
+										</div>
+									</div>
+									<div class="col-md-6 mb-4">
+										<div class="form-outline">
+											<input type="password" id="typeText" class="form-control form-control-lg"
+												value="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
+											<label class="form-label" for="typeText">Cvv</label>
+										</div>
+									</div>
+								</div>
+								<div class="form-check d-flex justify-content-center mb-5">
+									<input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+									<label class="form-check-label" for="form2Example3">
+										I agree all statements in <a href="#!">Terms of service</a>
+									</label>
+								</div>
+								<button type="button" class="btn btn-primary btn-block btn-lg">Buy now</button>
+								<h5 class="fw-bold mt-4"><a href="{% url 'home' %}" class="text-center"><i class="fas fa-angle-left me-2"></i>Back to shopping</a></h5>
+							</form>
+						</div>
+					</div>
+
+					<div class="card hidden" id="payment-info">
+						<div class="card-body">
+							<h5 class="card-title">Paypal Options</h5>
+							<small>Paypal options go here...</small>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+{% endblock content_checkout %}

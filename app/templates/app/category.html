@@ -1,0 +1,93 @@
+{% extends "app/base.html" %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style></style>
+  </head>
+  <body>
+    {% block regiser %}
+
+    
+
+    <div class="row" style="width: 100%;margin: 0 auto;">
+      <h4 style="margin-bottom: 20px; margin-top: 100px;">
+        Result for category:<span style="color: red">
+          {{active_category}}</span
+        >
+      </h4>
+      <br />
+      {% for product in products %}
+      <div class="col-lg-2 col-md-4 col-sm-6" style="margin-bottom: 20px">
+        <div
+          class="card"
+          style="
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+          "
+        >
+          <img
+            class="card-img-top"
+            src="{{product.ImageURL}}"
+            style="object-fit: cover; width: 100%; height: 200px"
+          />
+          <div
+            class="card-body"
+            style="
+              min-height: 120px;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              padding: 10px;
+            "
+          >
+            <h5 class="card-title" style="font-size: 1.2rem; margin-bottom: 0">
+              {{ product.name }}
+            </h5>
+            <p class="card-text" style="font-size: 1rem; color: #f80000">
+              <strong>Price:</strong> ${{ product.price | floatformat:2 }}
+            </p>
+          </div>
+          <div
+            class="card-footer"
+            style="
+              background-color: #f8f9fa;
+              border-top: 1px solid #ddd;
+              padding: 10px;
+              text-align: right;
+            "
+          >
+            <button
+              data-product="{{product.id}}"
+              data-action="add"
+              class="btn btn-outline-secondary add-btn update-cart"
+              style="margin-left: 5px"
+            >
+              <i class="fas fa-cart-plus"></i>
+            </button>
+              <a href="{% url 'detail' %}?id={{product.id}}" class="btn btn-outline-info view-btn"><i class="far fa-eye"></i></a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <style>
+      .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng box shadow */
+        transform: translateY(0);
+      }
+      .card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Hiệu ứng box shadow khi hover */
+        transform: translateY(-5px); /* Hiệu ứng nhấn xuống */
+      }
+    </style>
+    <br />
+    <br />
+    {% endblock regiser %}
+  </body>
+</html>
